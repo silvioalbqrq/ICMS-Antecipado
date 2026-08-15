@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora de ICMS Antecipado - Ceará (RICMS/CE arts. 767 a 770)">
+    <title>Calculadora ICMS Antecipado | Ceará</title>
+    <style>
+        :root {
+            --primary: #0A2540;
+            --primary-light: #1A3A5C;
+            --accent: #1E88E5;
+            --accent-hover: #1565C0;
+            --success: #00A86B;
+            --success-dark: #008F5A;
+            --bg: #F4F7FB;
+            --card: #FFFFFF;
+            --text: #1A2332;
+            --text-muted: #5A6A7E;
+            --border: #D0D9E6;
+            --warning-bg: #FFF8E6;
+            --warning-border: #F0C14B;
+            --shadow: 0 4px 20px rgba(10, 37, 64, 0.08);
+            --radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.55;
+            min-height: 100vh;
+        }
+
+        /* Proteção básica contra cópia de código / inspeção comum */
+        body {
+            -webkit-user-select: text;
+            user-select: text;
+        }
+        .no-select, script, style {
+            -webkit-user-select: none !important;
+            user-select: none !important;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
+
+        header h1 {
+            font-size: 1.65rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.35rem;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 1.75rem 1.25rem 3rem;
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1.1rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-box {
+            background: #E8F4FD;
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.15rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.92rem;
+            margin-bottom: 1.5rem;
+            color: #1A3A5C;
+        }
+
+        .info-box strong {
+            color: var(--primary);
+        }
+
+        .warning-box {
+            background: var(--warning-bg);
+            border-left: 4px solid var(--warning-border);
+            padding: 1rem 1.15rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+            margin-top: 1.25rem;
+            color: #5C4A1A;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.15rem 1.4rem;
+        }
+
+        @media (max-width: 640px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 1.35rem;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        label span {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        input[type="number"],
+        input[type="text"] {
+            padding: 0.7rem 0.9rem;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #FAFCFF;
+            color: var(--text);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.18);
+        }
+
+        input::placeholder {
+            color: #A0AEC0;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 0.85rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 0.8rem 1.6rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: #E8EEF5;
+            color: var(--primary);
+        }
+        .btn-secondary:hover {
+            background: #D5DEE9;
+        }
+
+        .result-card {
+            display: none;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .result-card.show {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 560px) {
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .result-item {
+            background: #F7FAFC;
+            border-radius: 10px;
+            padding: 1rem 1.15rem;
+            border: 1px solid var(--border);
+        }
+
+        .result-item .label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .result-item .value {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .result-item.highlight {
+            background: linear-gradient(135deg, #E8F8F0 0%, #D4F0E4 100%);
+            border-color: #A8D5C0;
+        }
+
+        .result-item.highlight .value {
+            color: var(--success-dark);
+            font-size: 1.55rem;
+        }
+
+        .formula {
+            background: #F0F4F8;
+            border-radius: 8px;
+            padding: 0.9rem 1.1rem;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: 1.25rem;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 1rem;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            vertical-align: middle;
+            margin-left: 0.4rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Calculadora de ICMS Antecipado</h1>
+        <p>Estado do Ceará • RICMS/CE (Decreto nº 24.569/1997) • Seção XXXIV – Arts. 767 a 770</p>
+    </header>
+
+    <div class="container">
+        <div class="card">
+            <div class="info-box">
+                <strong>Base legal:</strong> Art. 767 – Mercadorias procedentes de outra unidade federada sujeitas ao pagamento antecipado do ICMS sobre a saída subsequente.<br>
+                <strong>Base de cálculo (Art. 768):</strong> Valor da operação de entrada + IPI + seguro + frete + outros encargos.<br>
+                <strong>Cálculo (Art. 769):</strong> (Base × Alíquota interna) − ICMS destacado na NF de origem − ICMS do frete (quando de responsabilidade do adquirente).
+            </div>
+
+            <h2>Dados da Operação</h2>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="valorOperacao">Valor da Operação de Entrada <span>(R$)</span></label>
+                    <input type="number" id="valorOperacao" min="0" step="0.01" placeholder="0,00" value="">
+                </div>
+
+                <div class="form-group">
+                    <label for="ipi">IPI <span>(se incidente)</span></label>
+                    <input type="number" id="ipi" min="0" step="0.01" placeholder="0,00" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="seguro">Seguro <span>(R$)</span></label>
+                    <input type="number" id="seguro" min="0" step="0.01" placeholder="0,00" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="frete">Frete <span>(R$)</span></label>
+                    <input type="number" id="frete" min="0" step="0.01" placeholder="0,00" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="outros">Outros Encargos <span>(R$)</span></label>
+                    <input type="number" id="outros" min="0" step="0.01" placeholder="0,00" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="aliquota">Alíquota Interna <span>(%)</span></label>
+                    <input type="number" id="aliquota" min="0" max="100" step="0.01" placeholder="20" value="20">
+                </div>
+
+                <div class="form-group">
+                    <label for="icmsOrigem">ICMS Destacado na NF de Origem <span>(R$)</span></label>
+                    <input type="number" id="icmsOrigem" min="0" step="0.01" placeholder="0,00" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="icmsFrete">ICMS do Frete <span>(se resp. do adquirente)</span></label>
+                    <input type="number" id="icmsFrete" min="0" step="0.01" placeholder="0,00" value="0">
+                </div>
+            </div>
+
+            <div class="btn-row">
+                <button type="button" class="btn-primary" onclick="calcular()">Calcular ICMS Antecipado</button>
+                <button type="button" class="btn-secondary" onclick="limpar()">Limpar</button>
+            </div>
+
+            <div class="warning-box">
+                <strong>Atenção – Exceções (Art. 767, § 1º):</strong> Não se aplica a: insumos de estabelecimento industrial; mercadorias sujeitas à ST; regime especial de fiscalização; sem destinatário certo; mel de abelha para indústria; armazenamento em Operador Logístico com regime especial (CNAE 5211-7/99). Verifique sempre a legislação atualizada e o enquadramento da operação.
+            </div>
+        </div>
+
+        <div class="card result-card" id="resultado">
+            <h2>Resultado do Cálculo</h2>
+
+            <div class="result-grid">
+                <div class="result-item">
+                    <div class="label">Base de Cálculo (Art. 768)</div>
+                    <div class="value" id="resBase">R$ 0,00</div>
+                </div>
+                <div class="result-item">
+                    <div class="label">ICMS Calculado (Alíquota Interna)</div>
+                    <div class="value" id="resIcmsCalc">R$ 0,00</div>
+                </div>
+                <div class="result-item">
+                    <div class="label">Créditos (Origem + Frete)</div>
+                    <div class="value" id="resCreditos">R$ 0,00</div>
+                </div>
+                <div class="result-item highlight">
+                    <div class="label">ICMS a Recolher (Art. 769)</div>
+                    <div class="value" id="resRecolher">R$ 0,00</div>
+                </div>
+            </div>
+
+            <div class="formula" id="memoriaCalculo">
+                <!-- preenchido via JS -->
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Resumo da Legislação Aplicável</h2>
+            <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 0.8rem;">
+                <strong>Art. 770:</strong> O recolhimento do ICMS apurado será efetuado quando da passagem da mercadoria no posto fiscal de entrada neste Estado, exceto em relação aos contribuintes credenciados para pagamento em seu domicílio fiscal. Pode ser feito em qualquer instituição da rede arrecadadora credenciada, via DAE.
+            </p>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">
+                Fonte: Decreto nº 24.569, de 31 de julho de 1997 (RICMS/CE) – Seção XXXIV, com redações posteriores (Decretos 26.594/2002, 26.834/2002, 26.878/2002, 33.738/2020, 35.809/2023 e outros). Alíquota interna modal vigente: 20% (Lei nº 18.305/2023).
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        Ferramenta de apoio ao cálculo • Não substitui consultoria tributária ou a legislação oficial • 
+        <a href="https://www.sefaz.ce.gov.br" target="_blank" rel="noopener">SEFAZ-CE</a>
+    </footer>
+
+    <script>
+        // Proteções básicas contra cópia de código / inspeção comum
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('keydown', function(e) {
+            // Bloqueia F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S
+            if (
+                e.key === 'F12' ||
+                (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+                (e.ctrlKey && (e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S'))
+            ) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        // Impede arrastar elementos
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+
+        function formatMoney(value) {
+            return value.toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+        }
+
+        function parseNum(id) {
+            const el = document.getElementById(id);
+            const val = parseFloat(el.value.replace(',', '.'));
+            return isNaN(val) ? 0 : val;
+        }
+
+        function calcular() {
+            const valorOperacao = parseNum('valorOperacao');
+            const ipi = parseNum('ipi');
+            const seguro = parseNum('seguro');
+            const frete = parseNum('frete');
+            const outros = parseNum('outros');
+            const aliquota = parseNum('aliquota');
+            const icmsOrigem = parseNum('icmsOrigem');
+            const icmsFrete = parseNum('icmsFrete');
+
+            if (valorOperacao <= 0) {
+                alert('Informe o Valor da Operação de Entrada.');
+                document.getElementById('valorOperacao').focus();
+                return;
+            }
+
+            // Art. 768 - Base de Cálculo
+            const base = valorOperacao + ipi + seguro + frete + outros;
+
+            // Art. 769, I - ICMS calculado
+            const icmsCalculado = base * (aliquota / 100);
+
+            // Art. 769, II - Valor a recolher
+            const creditos = icmsOrigem + icmsFrete;
+            let aRecolher = icmsCalculado - creditos;
+            if (aRecolher < 0) aRecolher = 0;
+
+            // Exibir resultados
+            document.getElementById('resBase').textContent = formatMoney(base);
+            document.getElementById('resIcmsCalc').textContent = formatMoney(icmsCalculado);
+            document.getElementById('resCreditos').textContent = formatMoney(creditos);
+            document.getElementById('resRecolher').textContent = formatMoney(aRecolher);
+
+            // Memória de cálculo
+            const memoria = 
+`Base de Cálculo = ${formatMoney(valorOperacao)} + ${formatMoney(ipi)} + ${formatMoney(seguro)} + ${formatMoney(frete)} + ${formatMoney(outros)} = ${formatMoney(base)}
+ICMS Calculado  = ${formatMoney(base)} × ${aliquota}% = ${formatMoney(icmsCalculado)}
+ICMS a Recolher = ${formatMoney(icmsCalculado)} − ${formatMoney(icmsOrigem)} − ${formatMoney(icmsFrete)} = ${formatMoney(aRecolher)}`;
+
+            document.getElementById('memoriaCalculo').textContent = memoria;
+
+            const resultCard = document.getElementById('resultado');
+            resultCard.classList.add('show');
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function limpar() {
+            document.getElementById('valorOperacao').value = '';
+            document.getElementById('ipi').value = '0';
+            document.getElementById('seguro').value = '0';
+            document.getElementById('frete').value = '0';
+            document.getElementById('outros').value = '0';
+            document.getElementById('aliquota').value = '20';
+            document.getElementById('icmsOrigem').value = '0';
+            document.getElementById('icmsFrete').value = '0';
+            document.getElementById('resultado').classList.remove('show');
+        }
+
+        // Enter para calcular
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                calcular();
+            }
+        });
+    </script>
+</body>
+</html>
