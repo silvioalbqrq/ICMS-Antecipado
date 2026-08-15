@@ -76,7 +76,7 @@ O pagamento pode ser efetuado em qualquer instituição da rede arrecadadora cre
 
 ## Como usar
 
-1. Abra o arquivo `icms-antecipado-ceara.html` em qualquer navegador moderno.
+1. Abra o arquivo `index.html` em qualquer navegador moderno.
 2. Preencha os campos da operação.
 3. Clique em **Calcular ICMS Antecipado**.
 4. Confira o resultado e a memória de cálculo.
@@ -89,7 +89,7 @@ Não é necessário instalar nada. O arquivo é autossuficiente (HTML + CSS + Ja
 
 | Arquivo                        | Descrição                                      |
 |--------------------------------|------------------------------------------------|
-| `icms-antecipado-ceara.html`   | Calculadora completa (única página)            |
+| `index.html`                   | Calculadora completa (única página)            |
 | `README.md`                    | Este arquivo de documentação                   |
 
 ---
